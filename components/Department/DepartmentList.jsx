@@ -1,4 +1,5 @@
 import DepartmentCard from "./DepartmentCard"
+import AddDepartment from './AddDepartment'
 
 
 async function getDepartmentList(id){
@@ -18,6 +19,7 @@ export default async function DepartmentList(props){
 	return (
 		<>
 		<h1>Project: {props.id}</h1>
+		<AddDepartment id={props.id}/>
 		{departmentList.data.map((el) => <DepartmentCard key={el.id} id={el.id} {...el.attributes}/>)}
 		</>
 	)

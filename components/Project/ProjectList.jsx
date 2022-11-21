@@ -1,4 +1,5 @@
 import ProjectCard from "./ProjectCard"
+import AddProject from './AddProject'
 
 
 async function getProjectList(){
@@ -17,6 +18,7 @@ export default async function ProjectList(){
 	const projectList = await getProjectList()
 	return (
 		<>
+		<AddProject/>
 		{projectList.data.map((el, index) => <ProjectCard key={index} {...el}/>)}
 		</>
 	)

@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 
-async function deleteProject(id, refresh){
+async function deleteProject(id, setLoadingFlag, refresh){
+	setLoadingFlag(true)
 	await fetch('http://185.181.8.111:1337/api/projects/'+id,
 	{
 		headers: {
@@ -13,11 +14,13 @@ async function deleteProject(id, refresh){
 		method: 'DELETE'
 	})
 	refresh()
+	setLoadingFlag(false)
 }
 
 
-async function editName(id, name, setFlag, refresh){
-	await fetch('http://185.181.8.111:1337/api/projects/'+id,
+async function editName(id, name, setEditFlag, setLoadingFlag, refresh){
+	setLoadingFlag(true)
+	let res = await fetch('http://185.181.8.111:1337/api/projects/'+id,
 	{
 		headers: {
 			'Content-Type': 'application/json',
@@ -30,22 +33,26 @@ async function editName(id, name, setFlag, refresh){
 			}
 		})
 	})
-	setFlag(false)
 	refresh()
+	setLoadingFlag(false)
+	setEditFlag(false)
 }
 
 
 export default function ProjectCard(el){
 	const [editFlag, setEditFlag] = useState(false)
+	const [loadingFlag, setLoadingFlag] = useState(false)
 	const [name, setName] = useState(el.attributes.name)
 	const router = useRouter()
-	return (
+	return loadingFlag
+	? <span>Loading...</span>
+	: (
 		<div>
 			{editFlag
 			? (
 				<>
 				<input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
-				<button onClick={() => editName(el.id, name, setEditFlag, router.refresh)}>Save</button>
+				<button onClick={() => editName(el.id, name, setEditFlag, setLoadingFlag, router.refresh)}>Save</button>
 				</>
 			)
 			: (
@@ -57,7 +64,7 @@ export default function ProjectCard(el){
 				</>
 			)}
 
-			<button onClick={() => deleteProject(el.id, router.refresh)}>Delete</button>
+			<button onClick={() => deleteProject(el.id, setLoadingFlag, router.refresh)}>Delete</button>
 		</div>
 	)
 }

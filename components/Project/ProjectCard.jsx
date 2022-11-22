@@ -9,7 +9,7 @@ async function deleteProject(id, setLoadingFlag, refresh){
 	await fetch('http://185.181.8.111:1337/api/projects/'+id,
 	{
 		headers: {
-			'Authorization': 'Bearer d47807a3d353011a939c7e00374285ca07cf58b1c208b27c3ae6b678cc83fd6a5fbf250dcad2146d28d0968a8507157eb6bb46f65c48cbab9566b33ddf9ffc7e23307d7efbaa72e9ac3ae240f969d3e707fb139105eda6682a59eb477a581b5df453360535f4ab8991abf1472c62407f1eb7f02df5332e1a782179ff9bf37a64'
+			'Authorization': 'Bearer '+localStorage.getItem('token')
 		},
 		method: 'DELETE'
 	})
@@ -24,7 +24,7 @@ async function editName(id, name, setEditFlag, setLoadingFlag, refresh){
 	{
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': 'Bearer d47807a3d353011a939c7e00374285ca07cf58b1c208b27c3ae6b678cc83fd6a5fbf250dcad2146d28d0968a8507157eb6bb46f65c48cbab9566b33ddf9ffc7e23307d7efbaa72e9ac3ae240f969d3e707fb139105eda6682a59eb477a581b5df453360535f4ab8991abf1472c62407f1eb7f02df5332e1a782179ff9bf37a64',
+			'Authorization': 'Bearer '+localStorage.getItem('token'),
 		},
 		method: 'PUT',
 		body: JSON.stringify({
@@ -44,6 +44,7 @@ export default function ProjectCard(el){
 	const [loadingFlag, setLoadingFlag] = useState(false)
 	const [name, setName] = useState(el.attributes.name)
 	const router = useRouter()
+
 	return loadingFlag
 	? <span>Loading...</span>
 	: (
@@ -52,7 +53,7 @@ export default function ProjectCard(el){
 			? (
 				<div className='flex flex-col'>
 				<input className='border-b-2 my-2' type="text" value={name} onChange={(e) => setName(e.target.value)}/>
-				<button className='bg-gray-200 hover:bg-blue-500 hover:text-white' onClick={() => editName(el.id, name, setEditFlag, setLoadingFlag, router.refresh)}>Save</button>
+				<button className='bg-gray-200 hover:bg-blue-500 hover:text-white' onClick={() => editName(el.id, name, setEditFlag, setLoadingFlag, router.refresh)}>💾 Save</button>
 				</div>
 			)
 			: (

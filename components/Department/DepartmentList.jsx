@@ -17,10 +17,12 @@ async function getDepartmentList(id){
 export default async function DepartmentList(props){
 	const departmentList = await getDepartmentList(props.id)
 	return (
-		<>
-		<h1>Project: {props.id}</h1>
-		<AddDepartment id={props.id}/>
-		{departmentList.data.map((el) => <DepartmentCard key={el.id} id={el.id} {...el.attributes}/>)}
-		</>
+		<div className='flex flex-col justify-around items-center'>
+			<h1 className='font-bold'>Project: {props.id}</h1>
+			<div className='flex flex-wrap justify-around items-center w-full'>
+				<AddDepartment id={props.id}/>
+				{departmentList.data.map((el) => <DepartmentCard key={el.id} id={el.id} {...el.attributes}/>)}
+			</div>
+		</div>
 	)
 }

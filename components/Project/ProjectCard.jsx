@@ -47,24 +47,24 @@ export default function ProjectCard(el){
 	return loadingFlag
 	? <span>Loading...</span>
 	: (
-		<div>
+		<div className='flex flex-col border-2 p-4 max-w-sm w-1/3 m-2'>
 			{editFlag
 			? (
-				<>
-				<input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
-				<button onClick={() => editName(el.id, name, setEditFlag, setLoadingFlag, router.refresh)}>Save</button>
-				</>
+				<div className='flex flex-col'>
+				<input className='border-b-2 my-2' type="text" value={name} onChange={(e) => setName(e.target.value)}/>
+				<button className='bg-gray-200 hover:bg-blue-500 hover:text-white' onClick={() => editName(el.id, name, setEditFlag, setLoadingFlag, router.refresh)}>Save</button>
+				</div>
 			)
 			: (
-				<>
-				<Link href={'/project/' + el.id}>
-					{el.attributes.name}
-				</Link>
-				<button onClick={() => setEditFlag(true)}>Edit</button>
-				</>
+				<div className='flex flex-col'>
+					<Link className='hover:bg-orange-400 hover:text-white py-4 text-center font-bold' href={'/project/' + el.id}>
+						{el.attributes.name}
+					</Link>
+					<button className='bg-gray-200 hover:bg-blue-500 hover:text-white my-2' onClick={() => setEditFlag(true)}>🖉 Edit</button>
+				</div>
 			)}
 
-			<button onClick={() => deleteProject(el.id, setLoadingFlag, router.refresh)}>Delete</button>
+			<button className='bg-gray-200 hover:bg-red-500 hover:text-white my-2' onClick={() => deleteProject(el.id, setLoadingFlag, router.refresh)}>🗑 Delete</button>
 		</div>
 	)
 }

@@ -17,7 +17,7 @@ async function deleteTask(id, setLoadingFlag, refresh){
 }
 
 
-async function editName(id, title, body, setEdit, setLoading, refresh){
+async function editName(id, title, body, date, setEdit, setLoading, refresh){
 	setLoading(true)
 	await fetch('http://185.181.8.111:1337/api/tasks/'+id,
 	{
@@ -30,6 +30,7 @@ async function editName(id, title, body, setEdit, setLoading, refresh){
 			data: {
 				name: title,
 				description: body,
+				end_date: date,
 			}
 		})
 	})
@@ -66,44 +67,49 @@ export default function TaskCard(el){
 	const [loading, setLoading] = useState(false)
 	const [title, setTitle] = useState(el.name)
 	const [body, setBody] = useState(el.description)
+	const [date, setDate] = useState(el.end_date)
 
 	return loading
-	? <span>Loading...</span>
+	? <span>⏳ Loading...</span>
 	: (
-		<div>
+		<div className='flex flex-col border-2 p-4 max-w-sm w-1/3 m-2'>
 			{
 				edit
 				? (
-					<>
-					<input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/><br/>
-					<input type="text" value={body} onChange={(e) => setBody(e.target.value)}/><br/><br/>
-					</>
+					<div className='flex flex-col'>
+					<input className='border-b-2 my-2' type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
+					<input className='border-b-2 my-2' type="text" value={body} onChange={(e) => setBody(e.target.value)}/>
+					<input className='border-b-2 my-2' type="date" value={date} onChange={(e) => setDate(e.target.value)}/>
+					</div>
 				)
 				: (
-					<>
-					<h1>{el.name}</h1>
-					<span>{el.description}</span><br/><br/>
-					</>
+					<div className='flex flex-col'>
+					<h1 className='font-bold'>{el.name}</h1>
+					<span>{el.description}</span>
+					<span>🕘 {el.end_date}</span>
+					</div>
 				)
 			}
-			<span>
+			<div className='flex justify-between items-center'>
 				{el.compleate
-				? 'Compleate'
-				: 'Pending'}
-				<button onClick={() => check(el.id, !el.compleate, setLoading, router.refresh)}>
+				? '✅ Compleate'
+				: '⏳ In work...'}
+				<button className='bg-gray-200 p-2 hover:bg-blue-500 hover:text-white' onClick={() => check(el.id, !el.compleate, setLoading, router.refresh)}>
 					{
 						el.compleate
-						? 'Uncheck'
-						: 'Check'
+						? '❌ Uncheck'
+						: '✅ Check'
 					}
 				</button>
-			</span><br/>
-			{
-				edit
-				? <button onClick={() => editName(el.id, title, body, setEdit, setLoading, router.refresh)}>Save</button>
-				: <button onClick={() => setEdit(!edit)}>Edit</button>
-			}
-			<button onClick={() => deleteTask(el.id, setLoading, router.refresh)}>Delete</button>
+			</div>
+			<div className='flex justify-around'>
+				{
+					edit
+					? <button className='bg-gray-200 hover:bg-blue-500 hover:text-white p-2' onClick={() => editName(el.id, title, body, date, setEdit, setLoading, router.refresh)}>💾 Save</button>
+					: <button className='bg-gray-200 hover:bg-blue-500 hover:text-white my-2 p-2' onClick={() => setEdit(!edit)}>🖉 Edit</button>
+				}
+				<button className='bg-gray-200 hover:bg-red-500 hover:text-white my-2 p-2' onClick={() => deleteTask(el.id, setLoading, router.refresh)}>🗑 Delete</button>
+			</div>
 		</div>
 	)
 }

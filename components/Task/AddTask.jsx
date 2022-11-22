@@ -35,11 +35,11 @@ export default function AddTask(props){
 	return loadingFlag
 	? <span>Loading...</span>
 	: (
-		<div>
-			<input type="text" placeholder='Task name' value={name} onChange={(e) => setName(e.target.value)}/>
-			<input type="text" placeholder='Task description' value={body} onChange={(e) => setBody(e.target.value)}/>
-			<input type="date" value={date} onChange={(e) => setDate(e.target.value)}/>
-			<button onClick={() => addTask(props.id, name, body, date, setLoadingFlag, router.refresh)}>Add</button>
+		<div className='flex flex-col border-2 p-4 max-w-sm self-center w-1/3 m-2'>
+			<input className='border-b-2' type="text" placeholder='Task name' value={name} onChange={(e) => setName(e.target.value)}/>
+			<input className='border-b-2' type="text" placeholder='Task description' value={body} onChange={(e) => setBody(e.target.value)}/>
+			<input className='border-b-2' type="date" value={date} onChange={(e) => setDate(e.target.value)}/>
+			<button className='bg-gray-200 mt-2 hover:bg-green-400 p-2' onClick={() => addTask(props.id, name, body, date, setLoadingFlag, router.refresh)}>➕ Add</button>
 		</div>
 	)
 }

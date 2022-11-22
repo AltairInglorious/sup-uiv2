@@ -30,11 +30,11 @@ export default function AddDepartment(props){
 	const [name, setName] = useState('')
 	const [loadingFlag, setLoadingFlag] = useState(false)
 	return loadingFlag
-	? <span>Loading...</span>
+	? <span>⏳ Loading...</span>
 	: (
-		<div>
-			<input type="text" placeholder='Department name' value={name} onChange={(e) => setName(e.target.value)}/>
-			<button onClick={() => addDepartment(name, props.id, setLoadingFlag, setName, router.refresh)}>Add</button>
+		<div className='flex flex-col border-2 p-4 max-w-sm self-center w-1/3 m-2'>
+			<input className='border-b-2' type="text" placeholder='Department name' value={name} onChange={(e) => setName(e.target.value)}/>
+			<button className='bg-gray-200 mt-2 hover:bg-green-400 p-2' onClick={() => addDepartment(name, props.id, setLoadingFlag, setName, router.refresh)}>➕ Add</button>
 		</div>
 	)
 }

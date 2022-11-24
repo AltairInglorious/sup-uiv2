@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 async function addTask(department, name, body, date, setLoadingFlag, refresh){
 	setLoadingFlag(true)
-	await fetch('http://185.181.8.111:1337/api/tasks/',
+	await fetch('https://altairdev.tech/api/tasks/',
 	{
 		headers: {
 			'Content-Type': 'application/json',

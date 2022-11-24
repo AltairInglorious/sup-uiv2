@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 async function addDepartment(name, project, setLoadingFlag, setName, refresh){
 	setLoadingFlag(true)
-	await fetch('http://185.181.8.111:1337/api/departments/',
+	await fetch('https://altairdev.tech/api/departments/',
 	{
 		headers: {
 			'Content-Type': 'application/json',

@@ -6,7 +6,7 @@ async function signIn(login, password, setLoading, setError, setErrorFlag){
 	setErrorFlag(false)
 	setError('')
 	setLoading(true)
-	let res = await fetch('http://185.181.8.111:1337/api/auth/local',
+	let res = await fetch('https://altairdev.tech/api/auth/local',
 	{
 		headers: {
 			'Content-Type': 'application/json',

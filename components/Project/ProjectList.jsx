@@ -11,7 +11,7 @@ export default function ProjectList(){
 
 	useEffect(() => {
 		const fetchData = async () => {
-			let projectData = await fetch(process.env.BACKEND_HOST+'/api/projects?sort=id:desc',
+			let projectData = await fetch('https://altairdev.tech/api/projects?sort=id:desc',
 			{
 				headers: {
 					'Authorization': 'Bearer '+localStorage.getItem('token'),
@@ -25,7 +25,6 @@ export default function ProjectList(){
 		}
 		fetchData()
 	}, [])
-
 
 	return (
 		loading

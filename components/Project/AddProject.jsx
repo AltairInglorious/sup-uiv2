@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 async function addProject(name, setLoadingFlag, setName, refresh){
 	setLoadingFlag(true)
-	await fetch(process.env.BACKEND_HOST+'/api/projects/',
+	await fetch('https://altairdev.tech/api/projects/',
 	{
 		headers: {
 			'Content-Type': 'application/json',

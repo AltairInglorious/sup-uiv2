@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 async function addProject(name, setLoadingFlag, setName, refresh){
 	setLoadingFlag(true)
-	await fetch('http://185.181.8.111:1337/api/projects/',
+	await fetch(process.env.BACKEND_HOST+'/api/projects/',
 	{
 		headers: {
 			'Content-Type': 'application/json',

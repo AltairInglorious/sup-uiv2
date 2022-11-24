@@ -6,7 +6,7 @@ import { useState } from "react"
 
 async function deleteProject(id, setLoadingFlag, refresh){
 	setLoadingFlag(true)
-	await fetch('http://185.181.8.111:1337/api/projects/'+id,
+	await fetch(process.env.BACKEND_HOST+'/api/projects/'+id,
 	{
 		headers: {
 			'Authorization': 'Bearer '+localStorage.getItem('token')
@@ -20,7 +20,7 @@ async function deleteProject(id, setLoadingFlag, refresh){
 
 async function editName(id, name, setEditFlag, setLoadingFlag, refresh){
 	setLoadingFlag(true)
-	let res = await fetch('http://185.181.8.111:1337/api/projects/'+id,
+	let res = await fetch(process.env.BACKEND_HOST+'/api/projects/'+id,
 	{
 		headers: {
 			'Content-Type': 'application/json',

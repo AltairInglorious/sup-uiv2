@@ -11,7 +11,7 @@ export default function ProjectList(){
 
 	useEffect(() => {
 		const fetchData = async () => {
-			let projectData = await fetch('http://185.181.8.111:1337/api/projects?sort=id:desc',
+			let projectData = await fetch(process.env.BACKEND_HOST+'/api/projects?sort=id:desc',
 			{
 				headers: {
 					'Authorization': 'Bearer '+localStorage.getItem('token'),
